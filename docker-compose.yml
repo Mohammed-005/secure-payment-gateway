@@ -1,0 +1,20 @@
+services:
+  app-v1:
+    build: . 
+    container_name: app-version1
+    environment:
+      - APP_VERSION=v1
+    expose:
+      - "5000"
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-container-app-v1
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/etc/nginx/conf.d/
+    depends_on:
+      - app-v1
+    restart: always
