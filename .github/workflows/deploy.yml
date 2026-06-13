@@ -66,11 +66,11 @@ jobs:
               OLD_CONTAINER="app-version2"
             fi
 
-            docker compose up -d $NEW_TARGET 
+            docker-compose up -d $NEW_TARGET 
             sleep 5
 
             sed -i "s/proxy_pass http:\/\/$CURRENT_TARGET:5000;/proxy_pass http:\/\/$NEW_TARGET:5000;/" nginx.conf
 
-            docker exec nginx-container-app-v1 nginx -s reload
+            docker exec nginx-proxy-gateway nginx -s reload
 
-            docker stop $OLD_CONTAINER    
+            docker stop $OLD_CONTAINER || true

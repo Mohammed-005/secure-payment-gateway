@@ -1,6 +1,6 @@
 services:
   app-v1:
-    build: . 
+    build: 337405469571.dkr.ecr.ap-southeast-2.amazonaws.com/secure-app:v1
     container_name: app-version1
     environment:
       - APP_VERSION=v1
@@ -8,9 +8,18 @@ services:
       - "5000"
     restart: always
 
+  app-v2:
+    image: 337405469571.dkr.ecr.ap-southeast-2.amazonaws.com/secure-app:v1
+    container_name: app-version2
+    environment:
+      - APP_VERSION=v2
+    expose:
+      - "5000"
+    restart: always
+
   nginx:
     image: nginx:alpine
-    container_name: nginx-container-app-v1
+    container_name: nginx-proxy-gateway
     ports:
       - "80:80"
     volumes:
